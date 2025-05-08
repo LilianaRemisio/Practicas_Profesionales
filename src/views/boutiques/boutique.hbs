@@ -1,0 +1,203 @@
+<div class="text-center mb-4 align-items-center">
+    <h2 class="section-title px-5"><span class="px-2">Administración</span></h2>
+</div>
+<div id="editSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha editado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="deleteSuccessAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha eliminado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="addSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha creado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-6 pb-5">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Edición de datos Boutique</h4>
+                </div>
+                <div class="card-body">
+                    <form nid="contactForm" novalidate="novalidate" method="post" action="/boutique"
+                        enctype="multipart/form-data">
+                        <div class="control-group">
+                            <label for="NombreBoutique">Nombre Boutique:</label>
+                            <input type="text" class="form-control" id="NombreBoutique" value="{{boutique.Nombre}}"
+                                name="NombreBoutique" placeholder="Nombre Boutique" required="required"
+                                data-validation-required-message="Digite nombre Boutique" autofocus />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Mision">Misión:</label>
+                            <input type="text" class="form-control" value="{{boutique.Mision}}" id="Mision"
+                                name="Mision" placeholder="Misión" required="required"
+                                data-validation-required-message="Digite Misión" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Vision">Visión:</label>
+                            <input type="text" class="form-control" value="{{boutique.Vision}}" id="Vision"
+                                name="Vision" placeholder="Digite Visión" required="required"
+                                data-validation-required-message="Digite tallas separadas por coma" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Telefono">Telefono:</label>
+                            <input type="text" class="form-control" value="{{boutique.Telefono}}" id="Telefono"
+                                name="Telefono" placeholder="Telefono" required="required"
+                                data-validation-required-message="Digite precio" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Direccion">Dirección:</label>
+                            <input type="text" class="form-control" value="{{boutique.Direccion}}" id="Direccion"
+                                name="Direccion" placeholder="Dirección" required="required"
+                                data-validation-required-message="Digite precio" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Fascebook">Link Facebook:</label>
+                            <input type="text" class="form-control" id="Facebook" value="{{boutique.Facebook}}"
+                                name="Facebook" placeholder="ej: https://facebook..." required="required"
+                                data-validation-required-message="Digite precio" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="hrefLogo">Imagen:</label>
+                            <img src="{{boutique.hrefLogo}}" alt="Logo Actual" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="hrefLogo" id="hrefLogo"
+                                placeholder="Logo" data-validation-required-message="Seleccione Logo" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Instagram">Link Instagram:</label>
+                            <input type="text" class="form-control" id="Instagram" value="{{boutique.Instagram}}"
+                                name="Instagram" placeholder="https://Instagram.." required="required"
+                                data-validation-required-message="Digite Cantidad" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Whatsapp">Link Whatsapp:</label>
+                            <input type="text" class="form-control" id="Whatsapp" value="{{boutique.Whatsapp}}"
+                                name="Whatsapp" placeholder="https://wa.." required="required"
+                                data-validation-required-message="Digite Cantidad" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="HorarioLunesViernes">Horarios Lunes a Viernes:</label>
+                            <input type="text" class="form-control" id="Instagram" value="{{boutique.HorarioLunesViernes}}"
+                                name="HorarioLunesViernes" placeholder="9:00 a.m. - 2:00 p.m y 3:00 p.m a 5:00 p.m." required="required"
+                                data-validation-required-message="Digite Horario" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="HorarioSabado">Horarios Sabados:</label>
+                            <input type="text" class="form-control" id="Instagram" value="{{boutique.HorarioSabado}}"
+                                name="HorarioSabado" placeholder="9:00 a.m. - 2:00 p.m" required="required"
+                                data-validation-required-message="Digite Horario" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Whatsapp">Link Whatsapp:</label>
+                            <input type="text" class="form-control" id="Whatsapp" value="{{boutique.Whatsapp}}"
+                                name="Whatsapp" placeholder="https://wa.." required="required"
+                                data-validation-required-message="Digite Cantidad" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Editar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 pb-5">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Edición de fotos presentaciòn</h4>
+                </div>
+                <div class="card-body">
+                    <form nid="contactForm" novalidate="novalidate" method="post" action="/boutique"
+                        enctype="multipart/form-data">
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="Imagen">Imagen:</label>
+                            <img src="{{boutique.Fotografia}}" alt="Imagen actual del producto" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="Fotografia" id="Fotografia"
+                                placeholder="Fotografia1" data-validation-required-message="Seleccione Fotografia1" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="Imagen">Imagen:</label>
+                            <img src="{{boutique.Fotografia}}" alt="Imagen actual del producto" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="Fotografia" id="Fotografia"
+                                placeholder="Fotografia1" data-validation-required-message="Seleccione Fotografia1" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        
+
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Editar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Edición de fotos Clientes</h4>
+                </div>
+                <div class="card-body">
+                    <form nid="contactForm" novalidate="novalidate" method="post" action="/boutique"
+                        enctype="multipart/form-data">
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="Imagen">Imagen:</label>
+                            <img src="{{boutique.Fotografia}}" alt="Imagen actual del producto" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="Fotografia" id="Fotografia"
+                                placeholder="Fotografia1" data-validation-required-message="Seleccione Fotografia1" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="Imagen">Imagen:</label>
+                            <img src="{{boutique.Fotografia}}" alt="Imagen actual del producto" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="Fotografia" id="Fotografia"
+                                placeholder="Fotografia1" data-validation-required-message="Seleccione Fotografia1" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        
+
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Editar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

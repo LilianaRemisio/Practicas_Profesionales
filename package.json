@@ -1,0 +1,25 @@
+{
+  "name": "practicas-profesionales",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.2",
+    "mysql2": "^3.14.0",
+    "nodemailer": "^7.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

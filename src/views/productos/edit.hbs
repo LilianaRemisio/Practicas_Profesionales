@@ -1,0 +1,125 @@
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center w-100">
+        <div class="col-lg-6 mx-auto">
+            <div class="card border-secondary mb-3" id="productoCard">
+                <div class="card-header bg-secondary border-60 text-center">
+                    <h4 class="font-weight-semi-bold m-0 text-center">Edición de Producto</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/edit/{{producto.PKProducto}}" enctype="application/x-www-form-urlencoded">
+                        <div class="control-group">
+                            <p>ID producto: {{producto.PKProducto}}</p>
+                            <label for="Nombre">Nombre:</label>
+
+                            <input type="text" class="form-control" id="Nombre" name="Nombre"
+                                value="{{producto.Nombre}}" placeholder="Nombre" required="required"
+                                data-validation-required-message="Digite nombre" autofocus />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Color">Color:</label>
+
+                            <input type="text" class="form-control" id="Color" name="Color" value="{{producto.Color}}"
+                                placeholder="Color" required="required"
+                                data-validation-required-message="Digite color" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Filtros">Palabras busqueda:</label>
+
+                            <input type="text" class="form-control" id="Filtros" name="Filtros"
+                                value="{{producto.Filtros}}" placeholder="Palabras Claves" required="required"
+                                data-validation-required-message="Digite Palabras Claves para busqueda" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Talla">Talla:</label>
+                            <input type="text" class="form-control" id="Talla" name="Talla" value="{{producto.Talla}}"
+                                placeholder="Tallas" required="required"
+                                data-validation-required-message="Digite tallas separadas por coma" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Precio">Precio:</label>
+                            <input type="text" class="form-control" id="Precio" name="Precio"
+                                value="{{producto.Precio}}" placeholder="Precio" required="required"
+                                data-validation-required-message="Digite precio" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Estado">Estado:</label>
+                            <select class="form-control" id="Estado" name="Estado" required>
+                                <option value="Nuevo" {{#if (eq producto.Estado "Nuevo" )}}selected{{/if}}>Nuevo
+                                </option>
+                                <option value="Usado" {{#if (eq producto.Estado "Usado" )}}selected{{/if}}>Usado
+                                </option>
+                            </select>
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Tipo">Tipo:</label>
+                            <select class="form-control" id="Tipo" name="Tipo" required>
+                                <option value="Venta" {{#if (eq producto.Tipo "Venta" )}}selected{{/if}}>Venta
+                                </option>
+                                <option value="Alquiler" {{#if (eq producto.Tipo "Alquiler" )}}selected{{/if}}>Alquiler
+                                </option>
+                            </select>
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Cantidad">Cantidad:</label>
+                            <input type="text" class="form-control" id="Cantidad" name="Cantidad"
+                                value="{{producto.Cantidad}}" placeholder="Cantidad" required="required"
+                                data-validation-required-message="Digite Cantidad" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Categoria">Categoria:</label>
+                            <select class="form-control" name="Categoria" id="Categoria" required>
+                                <option value="Noche" {{#if (eq producto.Categoria "Noche" )}}selected{{/if}}>Noche
+                                </option>
+                                <option value="XV años" {{#if (eq producto.Categoria "XV años" )}}selected{{/if}}>XV
+                                    años
+                                </option>
+                                <option value="Novia" {{#if (eq producto.Categoria "Novia" )}}selected{{/if}}>Novia
+                                </option>
+                                <option value="Grado" {{#if (eq producto.Categoria "Grado" )}}selected{{/if}}>Grado
+                                </option>
+                                <option value="Dama de Honor" {{#if (eq producto.Categoria "Dama de Honor"
+                                    )}}selected{{/if}}>Dama de Honor
+                                </option>
+                                <option value="Trajes de Caballero" {{#if (eq producto.Categoria "Trajes de Caballero"
+                                    )}}selected{{/if}}>Trajes de Caballero
+                                </option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group" style="display: flex; align-items: center; gap: 510;">
+                            <label for="Fotografia">Imagen:</label>
+                            <img src="{{producto.Fotografia}}" alt="Imagen actual del producto" width="70" height="70"
+                                style="object-fit: cover; border-radius: 3%; margin: 1%;" />
+                            <input type="file" class="form-control" name="Fotografia" id="Fotografia"
+                                placeholder="Fotografia" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="Descripcion">Descripción:</label>
+                            <textarea class="form-control" rows="3" name="Descripcion" id="Descripcion"
+                                placeholder="Descripcion" required="required"
+                                data-validation-required-message="Por favor digite una descripción del producto"> {{producto.Descripcion}}</textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Editar</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

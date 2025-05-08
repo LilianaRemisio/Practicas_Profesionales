@@ -1,0 +1,123 @@
+
+<!-- Contact Start -->
+<div class="container-fluid pt-5 ">
+    <div class="text-center mb-4 align-items-center">
+        <h2 class="section-title px-5"><span class="px-2">Sobre Nosotros</span></h2>
+    </div>
+    <div class="row px-xl-5 align-items-center">
+        <div class="col-lg-6 mb-5 align-items-center">
+            <center>
+                <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 align-items-center">
+
+                    <img src="https://cdn.pixabay.com/photo/2019/03/26/02/51/woman-4081760_1280.jpg"
+                        class="w-100 shadow-1-strong rounded mb-4 align-items-center" alt="Boat on Calm Water" />
+
+                </div>
+            </center>
+
+        </div>
+        <div class="col-lg-6 mb-5">
+            <h5 class="font-weight-semi-bold mb-3">Nuestra Historia</h5>
+            <p>Púrpura Vestidos nace con el propósito de crear una tienda especializada en vestidos exclusivos de
+                fiesta solo para mujeres, brindándole a nuestras clientas, un espacio único, y privado, con la mejor
+                asesoría y atención personalizada sin límite de tiempo, es por eso, que somos más que una boutique.
+                Todos nuestros modelos son exclusivos, algunos diseñados por nuestro equipo de profesionales en
+                moda, otros, seleccionados, y traídos de los centros de moda más importantes del mundo.</p>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+
+<!-- Gallery  -->
+<div class="container">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Nuestros Clientes</span></h2>
+    </div>
+    <!-- Gallery -->
+    <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
+
+            <img src="https://cdn.pixabay.com/photo/2016/06/29/08/42/wedding-dress-1486260_1280.jpg"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Wintry Mountain Landscape" />
+        </div>
+
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <img src="https://cdn.pixabay.com/photo/2014/07/08/14/24/woman-387511_1280.jpg"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Mountains in the Clouds" />
+
+            <img src="https://cdn.pixabay.com/photo/2021/04/16/07/23/ao-dai-6182846_1280.jpg"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
+        </div>
+
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <img src="https://cdn.pixabay.com/photo/2016/11/14/03/30/bride-1822488_1280.jpg"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Waves at Sea" />
+
+            <img src="https://cdn.pixabay.com/photo/2021/03/22/16/07/woman-6115105_1280.jpg"
+                class="w-100 shadow-1-strong rounded mb-4" alt="Yosemite National Park" />
+        </div>
+    </div>
+    <!-- Gallery -->
+</div>
+
+
+<!-- Contact Start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Contactanos</span></h2>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+            <div class="contact-form">
+                <div id="success"></div>
+                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <div class="control-group">
+                        <input type="text" class="form-control" id="name" placeholder="Nombre" required="required"
+                            data-validation-required-message="Digite su nombre" />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <input type="email" class="form-control" id="email" placeholder="Apellido" required="required"
+                            data-validation-required-message="Digite su apellido" />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <input type="text" class="form-control" id="subject" placeholder="Subject" required="required"
+                            data-validation-required-message="Digite el asunto de contacto" />
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group">
+                        <textarea class="form-control" rows="6" id="message" placeholder="Mensaje" required="required"
+                            data-validation-required-message="Please enter your message"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5 mb-5">
+            {{#if boutiques}}
+{{#each boutiques}}
+            <h5 class="font-weight-semi-bold mb-3">Nuestra Misiòn</h5>
+            <p>{{Mision}}</p>
+            <div class="d-flex flex-column mb-3">
+                <h5 class="font-weight-semi-bold mb-3">{{Nombre}}</h5>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>{{Direccion}}</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{{Correo}}
+                </p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+57 {{Telefono}}</p>
+            </div>
+
+{{/each}}
+{{else}}
+{{/if}}
+        </div>
+    </div>
+</div>
+
+
+<!-- Contact End -->

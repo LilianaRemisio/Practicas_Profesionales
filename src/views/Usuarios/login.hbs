@@ -1,0 +1,131 @@
+<div class="container" id="containerLogin">
+
+    {{#if query.addSuccess}}
+    {{#if (eq query.addSuccess "true")}}
+    <div id="addSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{query.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{#if query.addSuccess}}
+    {{#if (eq query.addSuccess "false")}}
+    <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{query.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+    {{/if}}
+
+    <!-- Navegación -->
+    <ul class="nav nav-pills nav-justified mb-3">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="pill" href="#login">Iniciar sesión</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="pill" href="#register">Registrarse</a>
+        </li>
+    </ul>
+
+    <!-- Contenido de los tabs -->
+    <div class="tab-content">
+        <!-- Login -->
+        <div class="tab-pane fade show active" id="login">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>Iniciar sesión</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/login"> 
+                        <div class="form-outline">
+                            <input type="email" class="form-control" id="loginEmail" name="loginEmail" required>
+                            <label class="form-label" for="loginEmail">Correo electrónico o usuario</label>
+                        </div>
+
+                        <div class="form-outline">
+                            <input type="password" class="form-control" id="loginPassword" name="loginPassword" required>
+                            <label class="form-label" for="loginPassword">Contraseña</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="#">¿Olvidaste tu contraseña?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Iniciar sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="tab-pane fade" id="Seguridad">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>Iniciar sesión</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <p>Por favor digite el còdigo de seguridad enviado a su correo re****@gmail</p>
+                        <div class="form-outline">
+                            <input type="text" class="form-control" id="loginCodigo" required>
+                            <label class="form-label" for="loginCodigo">Còdigo</label>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Validar Còdigo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register -->
+        <div class="tab-pane fade" id="register">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary  text-white text-center">
+                    <h5>Registrarse</h5>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="/userRegister">
+                        <div class="form-outline">
+                            <input type="text" name="Nombre" class="form-control" id="Nombre" required>
+                            <label class="form-label" for="registerName">Nombre</label>
+                        </div>
+
+                        <div class="form-outline">
+                            <input type="text" name="Telefono" class="form-control" id="Telefono" required>
+                            <label class="form-label" for="Telefono">Telefono</label>
+                        </div>
+
+                        <div class="form-outline">
+                            <input type="email" class="form-control" name="Email" id="Email" required>
+                            <label class="form-label" for="Email">Correo electrónico</label>
+                        </div>
+
+                        <div class="form-outline">
+                            <input type="password" class="form-control" id="Contrasena" name="Contrasena" required>
+                            <label class="form-label" for="Contrasena">Contraseña</label>
+                        </div>
+
+                        <div class="form-outline">
+                            <input type="password" name="RepetirContrasena" class="form-control" id="RepetirContrasena"
+                                required>
+                            <label class="form-label" for="RepetirContrasena">Repetir contraseña</label>
+                        </div>
+
+                        <div class="form-check text-center">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">Acepto los términos y condiciones</label>
+                        </div>
+                        <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Registrarse
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
