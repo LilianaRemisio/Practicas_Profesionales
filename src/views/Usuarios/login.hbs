@@ -23,7 +23,7 @@
     {{/if}}
 
     <!-- Navegación -->
-    <ul class="nav nav-pills nav-justified mb-3">
+    <ul class="nav nav-pills nav-justified mb-3" id="btns_opciones">
         <li class="nav-item">
             <a class="nav-link active" data-bs-toggle="pill" href="#login">Iniciar sesión</a>
         </li>
@@ -68,15 +68,13 @@
                     <h5>Iniciar sesión</h5>
                 </div>
                 <div class="card-body">
-                    <form>
-                        <p>Por favor digite el còdigo de seguridad enviado a su correo re****@gmail</p>
+                    <form method="post" action="/codigoSeguridad/{{query.email}}"> 
+                        <p>Por favor digite el còdigo de seguridad enviado a su correo {{query.email}}</p>
                         <div class="form-outline">
-                            <input type="text" class="form-control" id="loginCodigo" required>
+                            <input type="text" class="form-control" id="loginCodigo" name="loginCodigo" required>
                             <label class="form-label" for="loginCodigo">Còdigo</label>
                         </div>
-
-
-                        <button type="submit" class="btn btn-primary btn-block mt-3">Validar Còdigo</button>
+                        <button class="btn btn-primary btn-block mt-3">Validar Còdigo</button>
                     </form>
                 </div>
             </div>
