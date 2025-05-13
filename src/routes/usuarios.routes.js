@@ -31,7 +31,9 @@ const router = Router();
 router.get('/login', async (req, res) => { //url cargue de Login
     try {
         //const [result] = await pool.query("Select * from productos");
+        console.log("Solicitud POST recibida en /login");    console.log("Datos recibidos:", req.body);
         res.render('usuarios/login', { query: req.query });
+
     }
     catch (err) {
         res.status(500).json({ message: err.message })
@@ -40,9 +42,10 @@ router.get('/login', async (req, res) => { //url cargue de Login
 });
 
 router.post('/userRegister', async (req, res) => { //registrar usuario
-    
+
     const { Nombre, Telefono, Email, Contrasena, RepetirContrasena } = req.body;
-   
+    console.log("Solicitud POST recibida en /login");
+    console.log("Datos recibidos:", req.body);
 
     // Validar que las contraseñas coincidan
     if (Contrasena !== RepetirContrasena) {
@@ -67,7 +70,7 @@ router.post('/userRegister', async (req, res) => { //registrar usuario
     if (!Telefono.match(/^\d{7,15}$/)) {
         return res.redirect('/login?addSuccess=false&message=Teléfono inválido');
     }
-    
+
     // Encriptar la contraseña antes de guardarla
 
     const salt = await bcrypt.genSalt(10);
@@ -79,67 +82,4 @@ router.post('/userRegister', async (req, res) => { //registrar usuario
 
     res.redirect('/login?addSuccess=true&message=Usuario registrado con éxito');
 });
-
-router.post('/login', async (req, res) => {
-    const { loginEmail, loginPassword } = req.body;
-
-    // Verificar si el usuario existe
-    const [rows] = await pool.query('SELECT * FROM usuarios WHERE Email = ?', [loginEmail]);
-    if (rows.length === 0) {
-        return res.redirect('/login?addSuccess=false&message=Correo no registrado');
-    }
-
-    // Obtener la contraseña cifrada guardada en la base de datos
-    const storedPassword = rows[0].Contrasena;
-
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPasswor = await bcrypt.hash(loginPassword, salt);
-    const hashedPasswor1 = await bcrypt.hash(loginPassword, salt);
-
-    console.log(hashedPasswor);
-    console.log(hashedPasswor1);
-    console.log(storedPassword);
-
-    // Comparar la contraseña ingresada con la almacenada
-    const passwordMatch = await bcrypt.compare(loginPassword, storedPassword);
-    if (!passwordMatch) {
-        console.log("----------------------------------------------");
-        return res.redirect('/login?addSuccess=false&message=Contraseña incorrecta');
-    }
-
-    // Generar el código de seguridad para el usuario
-    const securityCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-    const hashedCode = await bcrypt.hash(securityCode, salt);
-
-    // Guardar el código cifrado en la base de datos
-    await pool.query('UPDATE usuarios SET CodSeguridad = ? WHERE Email = ?', [hashedCode, loginEmail]);
-
-    // Enviar el código por correo
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'bell03h@gmail.com',
-            pass: '1234567Hl-' // Usa variables de entorno en producción
-        }
-    });
-
-    const mailOptions = {
-        from: 'bell03h@gmail.com',
-        to: loginEmail,
-        subject: 'Código de seguridad para inicio de sesión',
-        text: `Tu código de seguridad es: ${securityCode}`
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.redirect('/login?addSuccess=false&message=Error al enviar el código de seguridad');
-        }
-        return res.redirect(`/login?addSuccess=true&message=Código enviado, revisa tu correo&email=${loginEmail}`);
-    });
-});
-
-
-
 export default router;
