@@ -148,7 +148,7 @@ router.get('/Buscar', async (req, res) => {
     }
 });
 
-router.get('/cart/:PKProducto', async (req, res) => {
+router.get('/detail/:PKProducto', async (req, res) => {
     try {
         const { PKProducto } = req.params; // cambia producto
         const [producto] = await pool.query("SELECT * FROM productos WHERE PkProducto = ?", [PKProducto]);
@@ -157,7 +157,7 @@ router.get('/cart/:PKProducto', async (req, res) => {
             return res.status(404).send("Producto no encontrado"); // Si no hay producto, devolver error
         }
 
-        res.render('productos/cart', { producto: producto[0] }); // Enviar solo el primer objeto
+        res.render('productos/detail', { producto: producto[0] }); // Enviar solo el primer objeto
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -210,6 +210,30 @@ router.get('/venta/:categoria?', async (req, res) => { //filtro para ventas
         res.status(500).json({ message: err.message });
     }
 });
+
+router.get('/admin', async (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Página actual, por defecto 1
+    const limit = 9; // Número de registros por página
+    const offset = (page - 1) * limit;
+
+
+    const [productos] = await pool.query('SELECT * FROM productos LIMIT ? OFFSET ?', [limit, offset]);
+    
+    const [totalResult] = await pool.query('SELECT COUNT(*) AS total FROM productos');
+    const total = totalResult[0].total || 0;
+
+    res.render('productos/admin', {
+        productos,
+        currentPage: page,
+        totalPages: Math.ceil(total / limit)
+    });
+    
+});
+
+router.get('/add', async (req, res) => {  
+    res.render('productos/add');
+});
+
 
 
 

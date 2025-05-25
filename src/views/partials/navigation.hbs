@@ -1,9 +1,6 @@
-<nav class="navbar navbar-expand-sm ">
-
-
-
+<nav class="navbar navbar-expand-sm " id="navUsuario" style="padding-right: 3%; margin-bottom: 2%" >
     <!-- Links -->
-    <ul class="navbar-nav col-7">
+    <ul class="navbar-nav col-7" >
         <!-- Brand -->
 
         <img class="logo-navbar" src="/img/Logo_JR.png" alt="">
@@ -59,35 +56,49 @@
 
     <div class="col-lg-2 col-1 text-left">
         <!-- Botón de Login -->
-        <a href="/login" class="btn custom-btn border" title="Iniciar Sesiòn">
+        <a href="/login" id="iconLogin" class="btn custom-btn border" title="Iniciar Sesiòn">
+            <i class="fas fa-user text-primary"></i> <!-- Ícono de usuario/login -->
+        </a>
+        <!-- Botón de Carrito -->
+        <a href="/shoppingCart" id="iconCarrito" style="display: none;" class="btn custom-btn border" title="Carrito de compras">
+            <i class="fas fa-shopping-cart text-primary"></i> <!-- Ícono de carrito -->
+        </a>
+        
+        <a href="/perfil" id="iconPerfil" class="btn custom-btn border" style="display: none;" title="Ver Perfil">
             <i class="fas fa-user text-primary"></i> <!-- Ícono de usuario/login -->
         </a>
 
-        <!-- Botón de Carrito -->
-        <a href="/shoppingCart" class="btn custom-btn border" title="Carrito de compras">
-            <i class="fas fa-shopping-cart text-primary"></i> <!-- Ícono de carrito -->
+
+        <a href="/logout"  id="iconLogout" class="btn custom-btn border" style="display: none;" title="Cerrar Sesión">
+            <i class="fas fa-sign-out-alt text-primary"></i> 
         </a>
     </div>
 
 
 </nav>
-<br>
-
-<nav class="navbar navbar-expand-sm ">
-
+<nav class="navbar navbar-expand-sm "  id="navAdministrador" style="display: none; padding-right: 3%; margin-bottom: 2%" >
     <ul class="navbar-nav col-7">
-
-
         <img class="logo-navbar" src="/img/Logo_JR.png" alt="">
 
         <li class="nav-item">
-            <a class="nav-link" href="/boutique">Boutique</a>
+            <a class="nav-link dropdown-toggle" href="/" id="navbardrop" data-toggle="dropdown">Boutique</a>
+            <div class="dropdown-menu">
+                <a href="/Boutique" class="dropdown-item">Datos de Boutique</a>
+                <a href="/fotosBoutique" class="dropdown-item">Fotos de presentación</a>
+            </div>
         </li>
         <a class="navbar-brand" href="#"></a>
         <a class="navbar-brand" href="#"></a>
-        <li class="nav-item">
-            <a class="nav-link" href="/admin">Productos</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Productos
+            </a>
+            <div class="dropdown-menu">
+                <a href="/add" class="dropdown-item">Agregar Productos</a>
+                <a href="/admin" class="dropdown-item">Edición de Productos</a>
+            </div>
         </li>
+       
         <a class="navbar-brand" href="#"></a>
         <a class="navbar-brand" href="#"></a>
         <li class="nav-item">

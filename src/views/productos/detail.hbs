@@ -1,0 +1,130 @@
+<div class="text-center mb-4 align-items-center">
+    <h2 class="section-title px-5"><span class="px-2">{{producto.Tipo}}</span></h2>
+</div>
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-6 pb-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner border">
+                    <div class="carousel-item active">
+                        <img class="w-100 h-100" src="{{producto.Fotografia}}" alt="Image">
+                    </div>
+                </div>     
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">{{producto.Nombre}}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-4 font-weight-medium">Disponible para {{producto.Tipo}}</p>
+                        <p class="mb-4 font-weight-medium">Talla {{producto.Talla}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-4">Detalle: {{producto.Descripcion}}</p>
+                    </div>
+
+                    <div class="input-group" style="margin: 4px; margin-top: 10px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ckCita">
+                            <label class="form-check-label" for="gridCheck">
+                                Cita previa de medida
+                            </label>
+                        </div>
+                    </div>
+
+                    <form class="mb-3" action="" id="frm_venta">
+                        <p class="mb-4 font-weight-medium">Selecciona las fechas para cita previa a {{producto.Tipo}}
+                        </p>
+                        <div class="input-group" style="margin: 4px; margin-top: -13px;">
+                            <input type="text" class="form-control p-4" id="datepicker"
+                                placeholder="Fecha cita previa">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" disabled><i class="fa fa-calendar-day"
+                                        style="color: aliceblue;"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin: 4px; margin-top: 10px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Recoger en punto comercial
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <b><label for="Talla" class="mb-4 font-weight-medium">Talla:</label></b>
+                            <select class="form-control" id="Talla" placeholder="Talla" name="Seleccione Talla"
+                                required="required" data-validation-required-message="Seleccione Talla">
+                                <option>S</option>
+                                <option>M</option>
+                                <option>L</option>
+                                <option>XL</option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </form> 
+
+                    <form class="mb-3" action="" id="frm_alquiler">
+                        <p class="mb-4 font-weight-medium">Selecciona las fechas para {{producto.Tipo}}</p>
+                        <div class="input-group" style="margin: 4px; margin-top: -13px;">
+                            <input type="text" class="form-control p-4" id="datepicker"
+                                placeholder="Fecha Inicio Alquiler">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" disabled><i class="fa fa-calendar-day"
+                                        style="color: aliceblue;"></i></button>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin: 4px;">
+                            <input type="text" class="form-control p-4" id="datepicker1"
+                                placeholder="Fecha fin Alquiler">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" disabled><i class="fa fa-calendar-day"
+                                        style="color: aliceblue;"></i></button>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <b><label for="Talla" class="mb-4 font-weight-medium">Talla:</label></b>
+                            <select class="form-control" id="Talla" placeholder="Talla" name="Seleccione Talla"
+                                required="required" data-validation-required-message="Seleccione Talla">
+                                <option>S</option>
+                                <option>M</option>
+                                <option>L</option>
+                                <option>XL</option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="input-group" style="margin: 4px; margin-top: 10px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Recoger en punto comercial
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h6 class="">Precio Envio</h6>
+                        <h6 class="">$0</h6>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Precio</h5>
+                        <h5 class="font-weight-bold">$540,000</h5>
+                    </div>
+                    <button class="btn btn-block btn-primary my-3 py-3">Agregar al pedido</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Cart End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

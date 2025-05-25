@@ -1,0 +1,149 @@
+<div class="container" id="">
+    <div class="row">
+        <!-- Contenido de los tabs -->
+        <div class="tab-content col-6">
+            <div class="card border-primary" style="height: 100%;">
+                <div class="card-header bg-primary  text-white text-center">
+                    <h5>Mis Datos</h5>
+                </div>
+
+                <div class="card-body">
+                    <p><b>Nombre:</b> {{usuario.Nombre}}</p>
+                    <p><b>Telefono:</b> {{usuario.Telefono}}</p>
+                    <p><b>Email:</b> {{usuario.Email}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content col-6">
+            <div class="card border-primary" style="height: 100%;">
+                <div class="card-header bg-primary  text-white text-center">
+                    <h5>Mis Medidas</h5>
+                </div>
+
+                <div class="card-body">
+                    <p><b>Busto:</b> {{medidas.Busto}}</p>
+                    <p><b>Cintura:</b> {{medidas.Largo}}</p>
+                    <p><b>Gluteos:</b> {{medidas.Cintura}}</p>
+                    <button class="btn btn-primary">Editar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+
+
+        <div class="col-lg-12">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Pedidos</h4>
+                </div>
+                <table class="table table-fixed text-center">
+                    <colgroup>
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 15%;">
+                        <col style="width: 10%;">
+                    </colgroup>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Valor Total</th>
+                            <th scope="col">Dirección Entrega</th>
+                            <th scope="col">Estado Pedido</th>
+                            <th scope="col">Fecha Entrega</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if pedidos}}
+                        {{#each pedidos}}
+                        <tr>
+                            <th scope="row">´{{PKPedido}}</th>
+                            <td>{{Fecha}}</td>
+                            <td>{{ValorPago}}</td>
+                            <td>{{Direccion}}</td>
+                            <td>{{Estado}}</td>
+                            <td>{{FechaEntrega}}</td>
+                            <td>
+                                <a href="#" class="btn border" id="btnEliminar"
+                                    onclick="cargarDetalles('{{PKPedido}}')">
+                                    <i class="fas fa-eye"></i>
+                                    <span class="badge">Ver Detalle</span>
+                                </a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        {{/if}}
+                    </tbody>
+
+                </table>
+                <!-- Controles de paginación -->
+                <nav>
+                    <ul class="pagination justify-content-center mt-4">
+                        {{#if (gt currentPage 1)}}
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{subtract currentPage 1}}">Anterior</a>
+                        </li>
+                        {{/if}}
+
+                        {{#each (range 1 totalPages)}}
+                        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
+                            <a class="page-link" href="/admin?page={{this}}">{{this}}</a>
+                        </li>
+                        {{/each}}
+
+                        {{#if (lt currentPage totalPages)}}
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{add currentPage 1}}">Siguiente</a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div class="modal fade" id="detalleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles del Pedido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-fixed text-center">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Fotografía</th>
+                                <th>Estado</th>
+                                <th>Color</th>
+                                <th>Talla</th>
+                                <th>Cantidad</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detalleContenido">
+                            <!-- Aquí se insertarán los datos dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

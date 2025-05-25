@@ -1,4 +1,5 @@
 import express from 'express';
+import pool from "./database.js";
 import { engine } from 'express-handlebars';
 import morgan from 'morgan';
 import {join, dirname} from 'path';
@@ -7,9 +8,13 @@ import boutiquesRoutes from './routes/boutiques.routes.js';
 import productosRoutes from './routes/productos.routes.js';
 import pedidosRoutes from './routes/pedidos.routes.js';
 import usuariosRoutes from './routes/usuarios.routes.js';
+import cookieParser from 'cookie-parser';
+
+
 
 //Initialization
 const app = express();
+app.use(cookieParser());
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
@@ -49,10 +54,19 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 //Routes
-app.get('/', (req, res)=>{
-    res.render('index')
+app.get('/', async (req, res)=>{
+    try {
+        const [result] = await pool.query("Select * from productos");
+        const [fotosBoutique] = await pool.query("Select href from fotosBoutique where Tipo = 'fotosPortada'");
+        console.log(fotosBoutique)
+        res.render('index', { 
+            productos: result,
+            fotosBoutique: fotosBoutique });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 });
-
 
 app.use(boutiquesRoutes);
 

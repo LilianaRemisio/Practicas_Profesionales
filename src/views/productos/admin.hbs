@@ -1,0 +1,130 @@
+<div class="text-center mb-4 align-items-center">
+    <h2 class="section-title px-5"><span class="px-2">Administración</span></h2>
+</div>
+<div id="editSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha editado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="deleteSuccessAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha eliminado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="addSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    ¡El producto se ha creado correctamente!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        
+
+        <div class="col-lg-12">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">PRODUCTOS</h4>
+                </div>
+                <table class="table table-fixed text-center">
+                    <colgroup>
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
+                    </colgroup>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Color</th>
+                            <th scope="col">Tallas</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciòn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if productos}}
+                        {{#each productos}}
+                        <tr>
+                            <th scope="row">´{{PKProducto}}</th>
+                            <td>{{Nombre}}</td>
+                            <td>{{Color}}</td>
+                            <td>{{Talla}}</td>
+                            <td>{{Precio}}</td>
+                            <td>{{Estado}}</td>
+                            <td>{{Cantidad}}</td>
+                            <td>{{Categoria}}</td>
+                            <td class="w-10"><img src="{{Fotografia}}" style="width: 100%;"></td>
+                            <td>
+                                <a href="#" class="btn border" id="btnEliminar"
+                                    onclick="confirmDelete('{{PKProducto}}')">
+                                    <i class="fas fa-trash"></i>
+                                    <span class="badge">Eliminar</span>
+                                </a>
+
+                                <br><br>
+
+                                <a href="/edit/{{PKProducto}}" class="btn border" id="btnEditar">
+                                    <i class="fas fa-edit"></i>
+                                    <span class="badge">Editar</span>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        {{/if}}
+                    </tbody>
+
+                </table>
+                <!-- Controles de paginación -->
+                <nav>
+                    <ul class="pagination justify-content-center mt-4">
+                        {{#if (gt currentPage 1)}}
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{subtract currentPage 1}}">Anterior</a>
+                        </li>
+                        {{/if}}
+
+                        {{#each (range 1 totalPages)}}
+                        <li class="page-item {{#if (eq this ../currentPage)}}active{{/if}}">
+                            <a class="page-link" href="/admin?page={{this}}">{{this}}</a>
+                        </li>
+                        {{/each}}
+
+                        {{#if (lt currentPage totalPages)}}
+                        <li class="page-item">
+                            <a class="page-link" href="/admin?page={{add currentPage 1}}">Siguiente</a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                </nav>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</div>

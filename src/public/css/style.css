@@ -831,7 +831,6 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  min-height: 100vh;
 
 }
 
@@ -9841,3 +9840,45 @@ body {
 
 }
 
+div.container-fluid.pt-5{
+  margin-bottom: 0%;
+}
+
+.product-img img {
+  width: 100%; /* Asegura que la imagen ocupa todo el ancho disponible */
+  height: 250px; /* Mantiene una altura uniforme */
+  object-fit: scale-down; /* Ajusta el contenido sin deformar */
+  border-radius: 8px; /* Opcional: añade esquinas redondeadas */
+  align-items: center;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px; /* Tamaño mínimo para mantener consistencia */
+  padding: 10px;
+}
+
+.card-body {
+  flex-grow: 1; /* Permite que el contenido se expanda uniformemente */
+}
+
+/* Diseño responsivo */
+@media (max-width: 1200px) {
+  .col-lg-3 {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-img img {
+    height: 200px; /* Reduce la altura en pantallas pequeñas */
+  }
+}

@@ -5,7 +5,14 @@ import path from "path";
 import { fileURLToPath } from "url";
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
 
+// Cargar variables de entorno
+dotenv.config();
+
+// Definir SECRET_KEY desde `.env`
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // Obtener el directorio correcto para ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +32,7 @@ const storage = multer.diskStorage({
 // Inicializa Multer
 const upload = multer({ storage });
 const router = Router();
+
 
 router.get('/login', async (req, res) => { //url cargue de Login
     try {
@@ -75,12 +83,11 @@ router.post('/userRegister', async (req, res) => { //registrar usuario
     const hashedPassword = bcrypt.hashSync(Contrasena, salt);
 
     // Insertar usuario con la contraseña encriptada
-    const newUser = { Nombre, Telefono, Email, Contrasena: hashedPassword };
+    const newUser = { Nombre, Telefono, Email, Rol: ClientRequest, Contrasena: hashedPassword };
     await pool.query('INSERT INTO usuarios SET ?', [newUser]);
 
     res.redirect('/login?addSuccess=true&message=Usuario registrado con éxito');
 });
-
 
 router.post('/login', async (req, res) => {  //login de usuario
     console.log("✅ POST /login recibido en el servidor");
@@ -125,7 +132,7 @@ router.post('/login', async (req, res) => {  //login de usuario
             pass: 'qhow ndyu lkgw fdln' // Reemplaza con la clave generada
         }
     });
-    
+
 
     const mailOptions = {
         from: 'bell03h@gmail.com',
@@ -143,11 +150,10 @@ router.post('/login', async (req, res) => {  //login de usuario
     });
 });
 
-
-router.post('/codigoSeguridad/:email', async (req, res) => { //validación de cod de seguridad
-
+// Validación de código de seguridad y generación de JWT
+router.post('/codigoSeguridad/:email', async (req, res) => {
     const { loginCodigo } = req.body;
-    const {email} =req.params;
+    const { email } = req.params;
 
     // Verificar si el usuario existe
     const [rows] = await pool.query('SELECT * FROM usuarios WHERE Email = ?', [email]);
@@ -156,14 +162,123 @@ router.post('/codigoSeguridad/:email', async (req, res) => { //validación de co
     }
 
     const codSeguridad = rows[0].CodSeguridad;
-    const codSeguridadMatch = bcrypt.compareSync( loginCodigo, codSeguridad);
+    const codSeguridadMatch = bcrypt.compareSync(loginCodigo, codSeguridad);
 
     if (!codSeguridadMatch) {
         return res.redirect('/login?addSuccess=false&message=Código de seguridad incorrecto');
     }
 
-    return res.redirect(`/login?addSuccess=true&message=Código correcto`);
-    
+    // 🔹 **Generar Token JWT con la clave segura**
+    const token = jwt.sign(
+        { id: rows[0].ID, email: rows[0].Email, rol: rows[0].Rol },
+        SECRET_KEY,
+        { expiresIn: "2h" }
+    );
+
+    //actualiza fecha de ingreso
+    await pool.query('UPDATE usuarios SET FechaIngreso = now() WHERE Email = ?', [email]);
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
+
+    if(rows[0].Rol === "Administrador"){
+        res.redirect('/boutique');
+    }else{
+        res.redirect('/perfil');
+    }
+
+
+});
+
+// Middleware para verificar sesión con JWT
+const verificarToken = (req, res, next) => {
+    console.log("Cookies recibidas:", req.cookies); // Verifica si el token está presente
+    const token = req.cookies.token; // Obtener el token desde la cookie
+
+    if (!token) {
+        console.log("Token no encontrado");
+        return res.status(403).send("No autorizado");
+    }
+
+    try {
+        const usuario = jwt.verify(token, SECRET_KEY);
+        console.log("Usuario decodificado:", usuario); // Muestra los datos extraídos
+        req.usuario = usuario;
+        next();
+    } catch (error) {
+        console.error("Error al verificar token:", error);
+        res.status(401).send("Token inválido o expirado");
+    }
+};
+
+
+
+// Ruta protegida con JWT
+router.get('/perfil/', verificarToken, async (req, res) => {
+    const email = req.params;
+    const page = parseInt(req.query.page) || 1; // Página actual, por defecto 1
+    const limit = 9; // Número de registros por página
+    const offset = (page - 1) * limit;
+
+    const [usuario] = await pool.query('SELECT * FROM usuarios  WHERE Email = ?  LIMIT 1', req.usuario.email);
+    const [medidas] = await pool.query('SELECT m.* FROM  medidas as m INNER JOIN usuarios as u ON m.Usuarios_PKCliente = u.PKCliente WHERE u.Email = ?  LIMIT 1', req.usuario.email);
+
+    const [pedidos] = await pool.query('SELECT p.PKPedido,p.EstadoPago,p.MedioPago,p.ValorPago,p.Direccion,p.Telefono,p.Correo,p.Fecha,p.Estado,p.TipoEntrega,p.FechaEntrega FROM pedidos as p inner join usuarios as u on p.Clientes_PKCliente = u.PKCliente WHERE u.Email = ?  LIMIT ? OFFSET ?', [req.usuario.email, limit, offset]);
+
+    const [totalResult] = await pool.query('SELECT COUNT(*) AS total FROM pedidos as p inner join usuarios as u on p.Clientes_PKCliente = u.PKCliente WHERE u.Email = ?', req.usuario.email);
+    const total = totalResult[0].total || 0;
+
+    res.render('usuarios/perfil', {
+        usuario: usuario[0], 
+        medidas: medidas[0], 
+        pedidos: pedidos,
+        currentPage: page,
+        totalPages: Math.ceil(total / limit)  });
+});
+
+router.get('/api/detallePedido', verificarToken,async (req, res) => {
+
+    if (!req.usuario) {
+        return res.status(401).json({ error: "Usuario no autenticado" });
+    }
+
+    const emailUsuario = req.usuario.email; 
+    const idPedido = req.query.pedido;
+
+
+    try {
+        const idPedido = req.query.pedido;
+        const emailUsuario = req.usuario.email;  // Ajusta según autenticación
+        console.log("Valor de req.usuario:", req.usuario);
+
+        const query = "SELECT pp.valor AS valor_por_productos, pp.cantidad AS cantidad_por_producto, p.EstadoPago, p.ValorPago AS valor_total, pr.Nombre, pr.Fotografia, pr.Estado, pr.Color, pr.Talla FROM pedidos AS p INNER JOIN usuarios AS u ON p.Clientes_PKCliente = u.PKCliente INNER JOIN pedidos_has_productos AS pp ON p.PKPedido = pp.Pedidos_PKPedido INNER JOIN productos AS pr ON pr.PKProducto = pp.Productos_PKProducto WHERE u.Email = ? AND p.PKPedido = ?";
+        
+        const detallesPedido = await pool.query(query, [emailUsuario, idPedido]);
+        res.json(detallesPedido);
+    } catch (error) {
+        console.log("Valor de req.usuario:", req.usuario);
+
+        console.error("Error al obtener detalles del pedido:", error);
+        res.status(500).json({ error: "Error en el servidor" });
+    }
+});
+
+
+router.get('/api/verificarSesion', verificarToken, (req, res) => {
+
+    console.log("Usuario autenticado:", req.usuario);
+    if (!req.usuario) {
+        return res.json({ sesionActiva: false });
+    }
+
+    res.json({
+        sesionActiva: true,
+        rol: req.usuario.rol // Esto debería ser el rol almacenado en el JWT
+    });
+});
+
+//cerrar sesion
+router.get('/logout', (req, res) => {
+    res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'Strict' });
+    res.redirect('/'); // Redirigir al login o página principal
 });
 
 

@@ -47,7 +47,6 @@ router.get('/questions', async (req, res) => {
 
 router.get('/boutique', async (req, res) => {
     try {
-        //const [result] = await pool.query("Select * from boutiques");
         const [boutique] = await pool.query('SELECT * FROM boutiques LIMIT 1');
         res.render('boutiques/boutique', {
             boutique: boutique[0] // Pasar solo el objeto, no el array
@@ -59,25 +58,22 @@ router.get('/boutique', async (req, res) => {
 
 });
 
+router.get('/fotosBoutique', async (req, res) => {
+    try {
+        //const [result] = await pool.query("Select * from boutiques");
+        const [fotos] = await pool.query("SELECT * FROM fotosBoutique where Boutiques_PKBoutique = 1 and Tipo in ('fotosPortada')");
+        console.log(fotos)
+        res.render('boutiques/fotosBoutique', {
+            fotos: fotos // Pasar solo el objeto, no el array
+        });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 
-router.get('/admin', async (req, res) => {
-    const page = parseInt(req.query.page) || 1; // Página actual, por defecto 1
-    const limit = 9; // Número de registros por página
-    const offset = (page - 1) * limit;
-
-
-    const [productos] = await pool.query('SELECT * FROM productos LIMIT ? OFFSET ?', [limit, offset]);
-    
-    const [totalResult] = await pool.query('SELECT COUNT(*) AS total FROM productos');
-    const total = totalResult[0].total || 0;
-
-    res.render('boutiques/admin', {
-        productos,
-        currentPage: page,
-        totalPages: Math.ceil(total / limit)
-    });
-    
 });
+
+
 
 router.post('/boutique/', upload.single('Fotografia'), async (req, res) => { //editar Boutique
     const Fotografia = req.file ? `/img/${req.file.filename}` : null; 
@@ -92,6 +88,23 @@ router.post('/boutique/', upload.single('Fotografia'), async (req, res) => { //e
 
     await pool.query('UPDATE Boutiques SET ? WHERE PkProducto = 1', [editBoutique]); //inser datos
     res.redirect('/boutique?editSuccess=true'); //actualizamos pagina
+});
+
+router.post('/fotos/', upload.fields([
+    { name: 'Fotografia1', maxCount: 1 },
+    { name: 'Fotografia2', maxCount: 1 }
+]), async (req, res) => {
+    const Fotografia1 = req.files['Fotografia1'] ? `/img/${req.files['Fotografia1'][0].filename}` : null;
+    const Fotografia2 = req.files['Fotografia2'] ? `/img/${req.files['Fotografia2'][0].filename}` : null;
+
+    if (Fotografia1) {
+        await pool.query('UPDATE FotosBoutique SET href = ? WHERE PKFotos = 1', [Fotografia1]);
+    }
+    if (Fotografia2) {
+        await pool.query('UPDATE FotosBoutique SET href = ? WHERE PKFotos = 2', [Fotografia2]);
+    }
+
+    res.redirect('/fotosBoutique?editSuccess=true'); // Actualizamos la página
 });
 
 

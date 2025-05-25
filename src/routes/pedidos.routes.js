@@ -23,5 +23,14 @@ router.get('/shoppingcart', async(req, res)=>{
 
 });
 
+router.get('/adminPedido', async(req, res)=>{
+    try{
+        res.render('pedidos/adminPedido');
+    }
+    catch(err){
+        res.status(500).json({message: err.message})
+    }
+
+});
 
 export default router;

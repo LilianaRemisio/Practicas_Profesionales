@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center w-100">
+        <div class="col-lg-6 mx-auto">
+            <div class="card border-secondary mb-3" id="productoCard">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Creación de Productos</h4>
+                </div>
+                <div class="card-body">
+                    <form nid="contactForm" novalidate="novalidate" method="post" action="/admin"
+                        enctype="multipart/form-data">
+                        <div class="control-group">
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre"
+                                placeholder="Digite Nombre" required="required"
+                                data-validation-required-message="Digite nombre" autofocus />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Color">Color:</label>
+                            <input type="text" class="form-control" id="Color" name="Color" placeholder="Digite Color"
+                                required="required" data-validation-required-message="Digite color" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Talla">Talla:</label>
+                            <input type="text" class="form-control" id="Talla" name="Talla"
+                                placeholder="Digite Tallas separadas por coma" required="required"
+                                data-validation-required-message="Digite tallas separadas por coma" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Precio">Precio:</label>
+                            <input type="text" class="form-control" id="Precio" name="Precio"
+                                placeholder="Digite Precio" required="required"
+                                data-validation-required-message="Digite precio" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Tipo">Tipo:</label>
+                            <select class="form-control" id="Tipo" placeholder="Tipo" name="Tipo"
+                                required="required" data-validation-required-message="Seleccione Tipo">
+                                <option>Venta</option>
+                                <option>Alquiler</option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Estado">Estado:</label>
+                            <select class="form-control" id="Estado" placeholder="Seleccione Estado" name="Estado"
+                                required="required" data-validation-required-message="Seleccione Estado">
+                                <option>Nuevo</option>
+                                <option>Usado</option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Cantidad">Cantidad:</label>
+                            <input type="text" class="form-control" id="Cantidad" name="Cantidad"
+                                placeholder="Digite Existencias" required="required"
+                                data-validation-required-message="Digite Cantidad" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Categoria">Categoria:</label>
+                            <select class="form-control" id="Categoria" name="Categoria"
+                                placeholder="Seleccione Categoria" required="required"
+                                data-validation-required-message="Seleccione Estado">
+                                <option>Noche</option>
+                                <option>XV años</option>
+                                <option>Novia</option>
+                                <option>Grado</option>
+                                <option>Dama de Honor</option>
+                                <option>Trajes de Caballero</option>
+                            </select>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Fotografia">Fotografia:</label>
+                            <input type="file" class="form-control" name="Fotografia" id="Cargue Fotografia"
+                                placeholder="Fotografia" data-validation-required-message="Seleccione Fotografia" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="Categoria">Categoria:</label>
+                            <textarea class="form-control" rows="3" name="Descripcion" id="Digite Descripcion"
+                                placeholder="Descripcion" required="required"
+                                data-validation-required-message="Por favor digite una descripción del producto"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <button class="btn btn-block btn-primary my-3 py-3" id="sendMessageButton">Crear
+                                producto</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
